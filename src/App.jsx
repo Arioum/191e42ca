@@ -1,7 +1,7 @@
-const App = () => {
-  return (
-    <div>App</div>
-  )
-}
+import Jobs from './pages/Jobs';
 
-export default App
+const App = () => {
+  return <Jobs />;
+};
+
+export default App;
