@@ -14,19 +14,28 @@ const JobCard = ({
 
   return (
     <article className='job-card'>
-      <div className='job-company'>
+      <div className='job-details-top'>
         <img src={logoUrl} />
-        <div className=''>
-          <p>{companyName}</p>
-          <p>{title}</p>
-          <p>{location}</p>
+        <div>
+          <a href='/' className='company-name'>
+            {companyName}
+          </a>
+          <p className='job-title'>{title}</p>
+          <p className='job-location'>{location}</p>
         </div>
       </div>
-      <p>{!expandDescription ? `${description.substring(0, 320)}...` : description}</p>
-      <span onClick={() => setExpandDescription(!expandDescription)}>
-        expand
-      </span>
-      <p>{experience}</p>
+      <div className='job-details-bottom'>
+        <p className='about-company'>About Company:</p>
+        <p className='job-description'>
+          {!expandDescription
+            ? `${description.substring(0, 320)}...`
+            : description}
+        </p>
+        <span onClick={() => setExpandDescription(!expandDescription)}>
+          expand
+        </span>
+        <p>{experience}</p>
+      </div>
       <a href={applyLink} className='apply-link'>
         ⚡ Easy Apply
       </a>

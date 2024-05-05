@@ -9,18 +9,53 @@
   overflow: hidden;
 }
 
-.job-company {
+.job-card:hover {
+  transition: all 0.2s ease-in-out;
+  transform: scale(1.01);
+}
+
+.job-details-top {
   display: flex;
   gap: 1rem;
+}
+
+.company-name {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-bottom: 3px;
+  color: #8b8b8b;
+}
+
+.job-title {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.job-location {
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.job-details-bottom {
+}
+
+.about-company {
+  margin: 0px;
+  font-size: 1.4rem;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+.job-description {
+  font-size: 1.4rem;
+  letter-spacing: -0.2px;
+  font-weight: 300;
 }
 
 img {
   width: 50px;
   height: 50px;
-}
-
-p {
-  font-size: 1.4rem;
 }
 
 .apply-link {
@@ -32,7 +67,7 @@ p {
   max-width: 100%;
   height: 45px;
   display: flex;
-  line-height: .6;
+  line-height: 0.6;
   justify-content: center;
   align-items: center;
 }
