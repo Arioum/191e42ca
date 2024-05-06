@@ -1,13 +1,6 @@
 .job-filter-container {
   display: flex;
   gap: 2em;
-}
-
-input[type='text'],
-input[type='number'] {
-  font-size: 1.2rem;
-  padding: 1em;
-  border-radius: 5px;
-  border: 1px solid #cecece;
-  color: #37546d;
+  flex-wrap: wrap;
+  padding: 0 2rem;
 }

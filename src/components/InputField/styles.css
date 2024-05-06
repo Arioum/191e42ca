@@ -1,0 +1,127 @@
+.autocomplete {
+  position: relative;
+  min-height: 40px;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  border: 1px solid #cecece;
+  color: #37546d;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5em 0.2em 0.5em 0.5em;
+  min-width: 150px;
+}
+
+.auto-options {
+  position: absolute;
+  top: 45px;
+  left: 0;
+  background-color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 0.6px 10px 1px;
+  border-radius: 5px;
+  border: 1px solid #cecece;
+  width: 100%;
+  display: flex;
+  font-size: 2.2rem;
+  flex-direction: column;
+  max-height: 300px;
+  z-index: 1;
+}
+
+.input-field {
+  display: flex;
+  /* align-self: flex-end; */
+}
+
+.chips-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+}
+
+.chip {
+  background-color: #e6e6e6;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+}
+
+.chip > span {
+  padding: 0 0.2em 0 0.5em;
+  display: flex;
+  align-items: center;
+  height: 20px;
+  font-size: 1.2rem;
+  line-height: 0;
+  font-weight: 300;
+}
+
+.chip > svg {
+  padding: 0.5rem;
+  width: 25px;
+  height: 100%;
+}
+
+.chip > svg:hover {
+  background-color: #ffb9b9;
+}
+
+.remove-all-chips > svg {
+  width: 40px;
+  height: 20px;
+}
+
+.input-dropdown {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.input-dropdown > svg {
+  display: flex;
+  justify-content: center;
+  width: 30px;
+}
+
+.input-separator {
+  content: '';
+  width: 0.1rem;
+  height: 100%;
+  background-color: #cccccc;
+  border: none;
+  margin-bottom: 8px;
+  margin-top: 8px;
+}
+
+.option {
+  padding: 0.6em 1em;
+  font-weight: 300;
+}
+
+.option:hover {
+  background-color: #ddeeff;
+  cursor: pointer;
+}
+
+input[type='text'],
+input[type='number'] {
+  height: 20px;
+  width: fit-content;
+  min-width: 50px;
+  max-width: 100px;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  border: none;
+  padding: 0.3em;
+}
+
+input[type='text']::placeholder,
+input[type='number']::placeholder {
+  font-weight: 300;
+}
+
+input[type='text']:focus,
+input[type='number']:focus {
+  border: none;
+  outline: none;
+}

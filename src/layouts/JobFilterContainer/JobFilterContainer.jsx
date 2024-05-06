@@ -6,27 +6,39 @@ import {
   updateRemote,
   updateRoles,
 } from '../../redux/slices/filters';
+import InputField from '../../components/InputField/InputField';
 import './styles.css';
 
 const JobFilterContainer = () => {
-  const { roles, location, experience, remote, basePay } = useSelector(
-    (state) => state.filters
-  );
+  const { experience, remote, basePay } = useSelector((state) => state.filters);
   const dispatch = useDispatch();
 
   return (
     <section className='job-filter-container'>
-      <input
+      <InputField
+        options={['frontend', 'backend', 'tech lead', 'ios', 'andriod']}
+        onRolesChange={(roles) => dispatch(updateRoles(roles))}
+        placeholder='Roles'
+      />
+      {/* <input
         type='text'
         onChange={(e) => dispatch(updateRoles(e.target.value))}
         value={roles}
         placeholder='Roles'
-      />
-      <input
-        type='text'
-        onChange={(e) => dispatch(updateLocation(e.target.value))}
-        value={location}
+      /> */}
+      <InputField
+        options={['chennai', 'delhi ncr', 'mumbai', 'remote', 'bangalore']}
+        onRolesChange={(locations) => dispatch(updateLocation(locations))}
         placeholder='Location'
+      />
+      <InputField
+        options={Array.from(
+          { length: (10 - 1) / 1 + 1 },
+          (value, index) => 1 + index * 1
+        )}
+        selectionLimit={1}
+        onRolesChange={(locations) => dispatch(updateExperience(locations))}
+        placeholder='Experience'
       />
       <input
         type='number'

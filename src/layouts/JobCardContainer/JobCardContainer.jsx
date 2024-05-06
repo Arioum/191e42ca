@@ -4,14 +4,19 @@ import JobCard from '../../components/JobCard/JobCard';
 import './styles.css';
 
 const JobCardContainer = ({ jobListings }) => {
-  const { roles, location, experience, remote, basePay } = useSelector(
+  const { newRoles, location, experience, remote, basePay } = useSelector(
     (state) => state.filters
   );
+  // console.log('newRoles', newRoles);
 
   const filteredJobListings = useCallback(() => {
     return jobListings.filter((jd) => {
       // Check if job role matches
-      if (roles && roles.length > 0 && !roles.includes(jd.jobRole)) {
+      if (
+        newRoles &&
+        newRoles.length > 0 &&
+        !newRoles.find((role) => role === jd.jobRole)
+      ) {
         return false;
       }
       // Check if location matches
@@ -36,7 +41,7 @@ const JobCardContainer = ({ jobListings }) => {
       }
       return true;
     });
-  }, [jobListings, roles, location, experience, remote, basePay]);
+  }, [jobListings, newRoles, location, experience, remote, basePay]);
 
   useEffect(() => {
     filteredJobListings();
