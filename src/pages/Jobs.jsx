@@ -61,7 +61,7 @@ const Jobs = () => {
       <h4>Search Jobs</h4>
       <JobFilterContainer />
       <JobCardContainer jobListings={jobs} />
-      {loading && <p>Loading...</p>}
+      {loading && <p className='loading'>Loading...</p>}
     </main>
   );
 };

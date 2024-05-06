@@ -10,14 +10,15 @@ const JobCardContainer = ({ jobListings }) => {
 
   const filteredJobListings = useCallback(() => {
     return jobListings.filter((jd) => {
+      // Check if job role matches
       if (roles && roles.length > 0 && !roles.includes(jd.jobRole)) {
         return false;
       }
-
+      // Check if location matches
       if (location && location.length > 0 && !location.includes(jd.location)) {
         return false;
       }
-
+      // Check if experience matches
       if (
         experience &&
         experience.length > 0 &&
@@ -25,11 +26,11 @@ const JobCardContainer = ({ jobListings }) => {
       ) {
         return false;
       }
-
+      // Check if remote matches
       if (remote && !jd.remote) {
         return false;
       }
-
+      // Check if basePay is within range
       if (basePay && (jd.basePay < basePay.min || jd.basePay > basePay.max)) {
         return false;
       }
@@ -46,9 +47,12 @@ const JobCardContainer = ({ jobListings }) => {
       {filteredJobListings().map((jd, index) => (
         <JobCard
           key={index}
+          postedOn={Math.floor(Math.random() * 20) + 1}
           title={jd.jobRole}
           companyName={jd.companyName}
           logoUrl={jd.logoUrl}
+          minSalary={jd.minJdSalary}
+          maxSalary={jd.maxJdSalary}
           description={jd.jobDetailsFromCompany}
           location={jd.location}
           experience={jd.minExp}

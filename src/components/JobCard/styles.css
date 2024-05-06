@@ -1,17 +1,41 @@
 .job-card {
   max-width: 340px;
+  min-width: 250px;
   display: flex;
+  justify-content: space-between;
   gap: 1rem;
   flex-direction: column;
   border: 1px solid #eee;
-  border-radius: 3rem;
+  border-radius: 2rem;
+  flex: 1;
   padding: 2rem;
   overflow: hidden;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 4px 0px;
+}
+
+.job-details {
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
 }
 
 .job-card:hover {
   transition: all 0.2s ease-in-out;
   transform: scale(1.01);
+}
+
+.job-post-age {
+  border: 1px solid #d2d2d2;
+  max-width: fit-content;
+  border-radius: 50em;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 2px 9px 0px;
+}
+
+.job-post-age > span {
+  font-size: 0.9rem;
+  font-weight: 300;
+  line-height: 20px;
+  padding: 0.8em;
 }
 
 .job-details-top {
@@ -37,7 +61,16 @@
   font-weight: 500;
 }
 
+.est-salary > span {
+  font-size: 1.4rem;
+  font-weight: 400;
+  margin: 8px 0;
+  color: #4d596a;
+}
+
 .job-details-bottom {
+  position: relative;
+  margin-bottom: 1.8rem;
 }
 
 .about-company {
@@ -49,13 +82,46 @@
 
 .job-description {
   font-size: 1.4rem;
-  letter-spacing: -0.2px;
+  letter-spacing: -0.1px;
   font-weight: 300;
+}
+
+.show-desc {
+  cursor: pointer;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  height: 70px;
+  font-size: 1.4rem;
+  color: #4943da;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  background: linear-gradient(to top, #fff, #ffffffe4, #ffffff3a);
+}
+
+.desc-expanded {
+  position: relative;
+  height: 30px;
 }
 
 img {
   width: 50px;
   height: 50px;
+}
+
+.job-experience > h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-bottom: 3px;
+  color: #8b8b8b;
+}
+
+.job-experience > p {
+  font-size: 1.4rem;
+  line-height: 1.5;
+  font-weight: 300;
 }
 
 .apply-link {
