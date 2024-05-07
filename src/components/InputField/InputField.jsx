@@ -3,15 +3,18 @@ import './styles.css';
 
 const InputField = ({
   options,
-  onRolesChange,
+  width,
+  filterState,
+  setFilterState,
   selectionLimit,
   placeholder,
 }) => {
-  const [chips, setChips] = useState([]);
+  const [chips, setChips] = useState(filterState);
   const [inputValue, setInputValue] = useState('');
   const [availableOptions, setAvailableOptions] = useState(options);
   const [isActive, setIsActive] = useState(false);
 
+  const blurTimeoutRef = useRef(null);
   const inputRef = useRef(null);
   // console.log('chips', chips);
 
@@ -21,10 +24,10 @@ const InputField = ({
 
   const handleOptionClick = (option) => {
     setChips([...chips, option]);
-    onRolesChange(option);
+    setFilterState(option);
     setInputValue('');
-    handleBlur(false);
     inputRef.current.focus();
+    handleBlur(false);
 
     // Remove selected option from availableOptions array
     setAvailableOptions((prevOptions) =>
@@ -35,6 +38,8 @@ const InputField = ({
   const removeChip = (chipToRemove) => {
     setChips((chips) => chips.filter((chip) => chip !== chipToRemove));
     setAvailableOptions((prevOptions) => [...prevOptions, chipToRemove]);
+    setFilterState(null)
+    // setFilterState(filterState.filter((chip) => chip !== chipToRemove));
   };
 
   const addOrRemoveChipByKey = (e) => {
@@ -46,8 +51,9 @@ const InputField = ({
         setAvailableOptions((prevOptions) =>
           prevOptions.filter((item) => item !== inputValue)
         );
-        // Dispatch event: updateRole
-        onRolesChange(inputValue);
+        // Dispatch event: updateState
+        setFilterState(inputValue);
+        handleBlur(false);
         setInputValue('');
       }
     }
@@ -69,16 +75,40 @@ const InputField = ({
       )
     );
   };
+
   const handleFocus = () => {
+    clearTimeout(blurTimeoutRef.current);
     setIsActive(true);
   };
 
   const handleBlur = () => {
-    setIsActive(false);
+    // Using setTimeout to delay setting isActive to false
+    // This ensures option selection occurs before closing dropdown
+    blurTimeoutRef.current = setTimeout(() => {
+      setIsActive(false);
+    }, 200); // Adjust the delay as needed
   };
+  if (!options) {
+    return (
+      <div className='autocomplete'>
+        <input
+          type='text'
+          className='input-field'
+          style={{ minWidth: width }}
+          value={filterState}
+          onChange={(e) => setFilterState(e.target.value)}
+          placeholder='Search Company Name'
+        />
+      </div>
+    );
+  }
 
   return (
-    <div className='autocomplete' onFocus={handleFocus}>
+    <div
+      className={`autocomplete ${isActive ? 'focus-active' : ''}`}
+      onFocus={handleFocus}
+      onBlur={handleBlur}
+    >
       <div className='chips-container'>
         {chips.map((chip, index) => (
           <div className='chip' key={index}>
@@ -101,6 +131,8 @@ const InputField = ({
         <input
           type='text'
           className='input-field'
+          onClick={handleFocus}
+          style={{ minWidth: width }}
           onChange={(e) => filterAvailableOptions(e.target.value)}
           onKeyDown={addOrRemoveChipByKey}
           value={inputValue}
@@ -108,22 +140,25 @@ const InputField = ({
           ref={inputRef}
         />
       )}
-      {chips.length > 0 && (
-        <div className='remove-all-chips'>
-          <svg
-            onClick={() => setChips([])}
-            height='10'
-            width='10'
-            viewBox='0 0 20 20'
-            aria-hidden='true'
-            focusable='false'
-            className='css-8mmkcg'
-          >
-            <path d='M14.348 14.849c-0.469 0.469-1.229 0.469-1.697 0l-2.651-3.030-2.651 3.029c-0.469 0.469-1.229 0.469-1.697 0-0.469-0.469-0.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-0.469-0.469-0.469-1.228 0-1.697s1.228-0.469 1.697 0l2.652 3.031 2.651-3.031c0.469-0.469 1.228-0.469 1.697 0s0.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c0.469 0.469 0.469 1.229 0 1.698z'></path>
-          </svg>
-        </div>
-      )}
       <div className='input-dropdown'>
+        {chips.length > 0 && (
+          <div className='remove-all-chips'>
+            <svg
+              onClick={() => {
+                setChips([]);
+                setAvailableOptions(options);
+              }}
+              height='10'
+              width='10'
+              viewBox='0 0 20 20'
+              aria-hidden='true'
+              focusable='false'
+              className='css-8mmkcg'
+            >
+              <path d='M14.348 14.849c-0.469 0.469-1.229 0.469-1.697 0l-2.651-3.030-2.651 3.029c-0.469 0.469-1.229 0.469-1.697 0-0.469-0.469-0.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-0.469-0.469-0.469-1.228 0-1.697s1.228-0.469 1.697 0l2.652 3.031 2.651-3.031c0.469-0.469 1.228-0.469 1.697 0s0.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c0.469 0.469 0.469 1.229 0 1.698z'></path>
+            </svg>
+          </div>
+        )}
         <hr className='input-separator'></hr>
         <svg
           height='20'

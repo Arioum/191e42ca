@@ -5,9 +5,10 @@ const filterSlice = createSlice({
   initialState: {
     roles: [],
     location: [],
-    experience: '',
-    remote: '',
-    basePay: '',
+    experience: [],
+    remote: [],
+    basePay: [],
+    companyName: '',
   },
   reducers: {
     updateRoles: (state, action) => {
@@ -23,7 +24,9 @@ const filterSlice = createSlice({
     },
     updateLocation: (state, action) => {
       if (state.location.length !== 0) {
-        const res = state.location.find((location) => location === action.payload);
+        const res = state.location.find(
+          (location) => location === action.payload
+        );
 
         if (!res) {
           state.location.push(action.payload);
@@ -33,13 +36,34 @@ const filterSlice = createSlice({
       }
     },
     updateExperience: (state, action) => {
-      state.experience = action.payload;
+      if (state.experience.length !== 0) {
+        const res = state.experience.find(
+          (experience) => experience === action.payload
+        );
+
+        if (!res) {
+          state.experience.push(action.payload);
+        }
+      } else {
+        state.experience.push(action.payload);
+      }
     },
     updateRemote: (state, action) => {
-      state.location = action.payload;
+      if (state.remote.length !== 0) {
+        const res = state.remote.find((remote) => remote === action.payload);
+
+        if (!res) {
+          state.remote.push(action.payload);
+        }
+      } else {
+        state.remote.push(action.payload);
+      }
     },
     updateBasePay: (state, action) => {
       state.basePay = action.payload;
+    },
+    updateCompanyName: (state, action) => {
+      state.companyName = action.payload;
     },
   },
 });
@@ -50,5 +74,6 @@ export const {
   updateExperience,
   updateRemote,
   updateBasePay,
+  updateCompanyName,
 } = filterSlice.actions;
 export default filterSlice.reducer;

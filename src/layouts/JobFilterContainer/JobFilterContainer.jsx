@@ -5,58 +5,60 @@ import {
   updateLocation,
   updateRemote,
   updateRoles,
+  updateCompanyName,
 } from '../../redux/slices/filters';
 import InputField from '../../components/InputField/InputField';
 import './styles.css';
 
 const JobFilterContainer = () => {
-  const { experience, remote, basePay } = useSelector((state) => state.filters);
+  const { roles, location, experience, remote, basePay, companyName } =
+    useSelector((state) => state.filters);
   const dispatch = useDispatch();
 
   return (
     <section className='job-filter-container'>
       <InputField
         options={['frontend', 'backend', 'tech lead', 'ios', 'andriod']}
-        onRolesChange={(roles) => dispatch(updateRoles(roles))}
+        filterState={roles}
+        setFilterState={(roles) => dispatch(updateRoles(roles))}
         placeholder='Roles'
       />
-      {/* <input
-        type='text'
-        onChange={(e) => dispatch(updateRoles(e.target.value))}
-        value={roles}
-        placeholder='Roles'
-      /> */}
       <InputField
         options={['chennai', 'delhi ncr', 'mumbai', 'remote', 'bangalore']}
-        onRolesChange={(locations) => dispatch(updateLocation(locations))}
+        filterState={location}
+        setFilterState={(locations) => dispatch(updateLocation(locations))}
         placeholder='Location'
       />
       <InputField
-        options={Array.from(
-          { length: (10 - 1) / 1 + 1 },
-          (value, index) => 1 + index * 1
+        options={Array.from({ length: 10 }, (_, index) =>
+          (index + 1).toString()
         )}
         selectionLimit={1}
-        onRolesChange={(locations) => dispatch(updateExperience(locations))}
+        filterState={experience}
+        setFilterState={(experience) => dispatch(updateExperience(experience))}
         placeholder='Experience'
       />
-      <input
-        type='number'
-        onChange={(e) => dispatch(updateExperience(e.target.value))}
-        value={experience}
-        placeholder='Experience'
-      />
-      <input
-        type='text'
-        onChange={(e) => dispatch(updateRemote(e.target.value))}
-        value={remote}
+      <InputField
+        options={['Remote', 'Hybrid', 'In-office']}
+        filterState={remote}
+        setFilterState={(remote) => dispatch(updateRemote(remote))}
         placeholder='Remote'
       />
-      <input
-        type='number'
-        onChange={(e) => dispatch(updateBasePay(e.target.value))}
-        value={basePay}
+      <InputField
+        options={Array.from({ length: 8 }, (_, index) => index * 10)}
+        selectionLimit={1}
+        width={'140px'}
+        filterState={basePay}
+        setFilterState={(basePay) => dispatch(updateBasePay(basePay))}
         placeholder='Minimum Base Pay'
+      />
+      <InputField
+        width={'160px'}
+        filterState={companyName}
+        setFilterState={(companyName) =>
+          dispatch(updateCompanyName(companyName))
+        }
+        placeholder='Search Company Name'
       />
     </section>
   );

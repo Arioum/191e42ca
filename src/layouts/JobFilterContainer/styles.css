@@ -1,6 +1,6 @@
 .job-filter-container {
   display: flex;
-  gap: 2em;
+  gap: 4em;
   flex-wrap: wrap;
   padding: 0 2rem;
 }

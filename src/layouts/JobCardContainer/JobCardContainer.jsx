@@ -4,18 +4,18 @@ import JobCard from '../../components/JobCard/JobCard';
 import './styles.css';
 
 const JobCardContainer = ({ jobListings }) => {
-  const { newRoles, location, experience, remote, basePay } = useSelector(
-    (state) => state.filters
-  );
-  // console.log('newRoles', newRoles);
+  const { roles, location, experience, remote, basePay, companyName } =
+    useSelector((state) => state.filters);
 
   const filteredJobListings = useCallback(() => {
     return jobListings.filter((jd) => {
+      const minExp = jd.minExp ? jd.minExp.toString() : jd.minExp;
+      console.log(jd.minJdSalary, basePay);
       // Check if job role matches
       if (
-        newRoles &&
-        newRoles.length > 0 &&
-        !newRoles.find((role) => role === jd.jobRole)
+        roles &&
+        roles.length > 0 &&
+        !roles.find((role) => role === jd.jobRole)
       ) {
         return false;
       }
@@ -24,24 +24,28 @@ const JobCardContainer = ({ jobListings }) => {
         return false;
       }
       // Check if experience matches
-      if (
-        experience &&
-        experience.length > 0 &&
-        !experience.includes(jd.minExp)
-      ) {
+      if (experience && experience.length > 0 && !experience.includes(minExp)) {
         return false;
       }
       // Check if remote matches
-      if (remote && !jd.remote) {
+      if (remote && remote.length > 0 && !remote.includes(jd.remote)) {
         return false;
       }
       // Check if basePay is within range
-      if (basePay && (jd.basePay < basePay.min || jd.basePay > basePay.max)) {
+      if (basePay && jd.minJdSalary < Number(basePay)) {
+        return false;
+      }
+      // Check company name
+      if (
+        companyName &&
+        companyName.length > 0 &&
+        !jd.companyName.includes(companyName)
+      ) {
         return false;
       }
       return true;
     });
-  }, [jobListings, newRoles, location, experience, remote, basePay]);
+  }, [jobListings, roles, location, experience, remote, basePay, companyName]);
 
   useEffect(() => {
     filteredJobListings();
